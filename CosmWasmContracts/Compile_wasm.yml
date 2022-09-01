@@ -1,0 +1,27 @@
+name: Docker Compose Workflow
+
+on: 
+
+  push:
+    branches:
+      - [main,dev]
+
+jobs:
+
+  compose:
+
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v3
+      name: Setup Action
+
+    - name: Build the wasm Artifact
+      run: make compile-optimized-reproducible
+
+    - uses: actions/upload-artifact@v2
+      name: Upload Contract artifact
+      with: 
+        name: CosmWasm-Contract
+        path: contract.wasm.gz
+
