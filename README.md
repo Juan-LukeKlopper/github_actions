@@ -1,0 +1,5 @@
+Hello to anyone checking out this repo, It contains all the different workflows that I have created for different projects.
+
+I work on CosmWasm smart contracts so it is the only folder right now, It is designed with a workflow in mind where a dev would create a PR for their changes, this triggers the Test_and_compile action. This runs all unit and integration tests and compiles to see if the contract is functioning properly before a senior dev checks the code for only implementation and approach. 
+
+Once the senior approves the pull request it gets merger into the main branch, This causes the Optimize_wasm action to get triggered, It creates a Optimized wasm file as artifact. This is needed to store the code on-chain. This last action needs to be manually triggered. It then downloads the optimized wasm artifact and store it on-chain through the use of a npx executable.
