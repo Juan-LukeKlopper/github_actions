@@ -3,7 +3,7 @@ name: Create optimized wasm Workflow
 on: 
   push:
     branches:
-      - [main,dev]
+      - main
 
 jobs:
 
