@@ -1,0 +1,38 @@
+on: 
+  workflow_call:
+    inputs:
+      contract:
+        description: 'Contract name'
+        required: true
+        type: string
+
+jobs:
+  Optimize:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: contracts/${{ inputs.contract }}
+
+    steps:
+
+    - uses: actions/checkout@v3
+      name: Setup Action
+
+    - name: Build the wasm Artifact
+      run: make
+
+    - uses: actions/upload-artifact@v2
+      if: ${{ (github.ref == 'refs/tags/*') }}
+      name: Upload tagged artifact
+      with: 
+        name: Production_contract
+        path: ${{github.workspace}}/contracts/${{ inputs.contract }}/contract.wasm.gz
+        retention-days: 90
+
+    - uses: actions/upload-artifact@v2
+      if: ${{ !(github.ref == 'refs/tags/*') }}
+      name: Upload non-tagged artifact
+      with: 
+        name: minter_contract
+        path: ${{github.workspace}}/contracts/${{ inputs.contract }}/contract.wasm.gz
+        retention-days: 20
