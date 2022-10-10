@@ -10,7 +10,7 @@ on:
         description:  "Gas limit to use for the transaction"
         required: true
         type: string
-        default: "5000000"
+        default: "10000000"
 
       network:
         description:  "Blockchain network to use"
@@ -29,7 +29,7 @@ jobs:
       uses: dawidd6/action-download-artifact@v2
       with:
         github_token: ${{secrets.ACCESS_TOKEN}}
-        workflow: Optimize_wasm.yml
+        workflow: Test_And_Compile_Contract.yml
         workflow_conclusion: success
         skip_unpack: false
 
